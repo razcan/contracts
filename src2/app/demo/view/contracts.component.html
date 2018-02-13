@@ -1,0 +1,775 @@
+<!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
+
+
+<!-- Add Contract General Page -->
+
+<section id="main">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-8">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a routerLink="/list/contract-general" class="nav-link active">General</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="/list/contract-financial"> Financiar</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="/list/contract-documents">Documente</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="/list/contract-tasks">Task</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="/list/contract-history">Istoric</a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="/list/contract-alerts"> Alerte</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <ul class="nav justify-content-end">
+                <li class="nav-item">
+                  <button type="button" class="btn btn-success" (click)="ContractSave()">Salveaza</button>
+                </li>
+                <li class="nav-item">
+                  <button type="button" class="btn btn-warning">Renunta</button>
+                </li>
+              </ul>
+            </div>
+  
+          </div>
+  
+  
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+  
+              <!-- General Info Tab -->
+              <div class="container-fluid general-page">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="ui-g">
+                      <div class="ui-g-12 ui-md-2">
+                        <p style="font-size: 13px">
+                          Contract Parinte
+                        </p>
+                      </div>
+                      <div class="ui-g-12 ui-md-2">
+                        <input type="text" pTooltip="Contract Parent" [disabled]="true" [(ngModel)]="ContractParent">
+                      </div>
+                      <div class="ui-g-12 ui-md-1">
+                        <p style="font-size: 13px">
+                          Versiune
+                        </p>
+                      </div>
+                      <div class="ui-g-12 ui-md-2">
+                        <input type="text" pInputText placeholder="1" pTooltip="Enter Version" [(ngModel)]="Version">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="hr1">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-body">
+  
+                        <h4 class="card-title">Informatii Generale </h4>
+  
+                        <!-- <p class="card-text">Informatii Generale</p> -->
+                        <hr class="hr">
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-3">
+                            <p>
+                              Nume Partener*
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-dropdown [options]="LL" [(ngModel)]="PartnerId" [style]="{'width':'180px'}" filter="true">
+                            </p-dropdown>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-plus text-success" aria-hidden="true" (click)="showDialogPartner()"></span>
+                            </button>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-pencil text-primary" aria-hidden="true" (click)="showDialogForPartner(PartnerId)"></span>
+                            </button>
+                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="FormValidationErrPartener == 1">
+                              <i class="fa fa-close"></i>
+                              Campul este obligatoriu
+                            </div>
+                          </div>
+  
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-3">
+                            <p>
+                              Tip Contract*
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-dropdown [options]="contract" [style]="{'width':'150px'}" optionLabel='name' [(ngModel)]="ContractType">
+                            </p-dropdown>
+                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="FormValidationErrType == 1">
+                              <i class="fa fa-close"></i>
+                              Campul este obligatoriu
+                            </div>
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-3">
+                            <p>
+                              Numar Contract
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <input type="text" pInputText placeholder="123456" pTooltip="Enter Contract Number" [(ngModel)]="ContractNumber">
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-3">
+                            <p>
+                              Cod Contract
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <input type="text" pInputText placeholder="XYZ" pTooltip="Enter Contract Code" [(ngModel)]="ContractCode">
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-3">
+                            <p>
+                              Data Semnare
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-calendar [showIcon]="true" pTooltip="Enter Signing Date" tooltipPosition="top" [(ngModel)]="SigningDate"></p-calendar>
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-3">
+                            <p>
+                              Data Inceput
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-calendar [showIcon]="true" pTooltip="Enter Start Date" tooltipPosition="top" [(ngModel)]="StartDate"></p-calendar>
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-3">
+                            <p>
+                              Data Sfarsit
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-calendar [showIcon]="true" pTooltip="Enter End Date" tooltipPosition="top" [(ngModel)]="EndDate"></p-calendar>
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-3">
+                            <p>
+                              Status Contract*
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-dropdown [options]="statusContract" [style]="{'width':'150px'}" optionLabel='name' [(ngModel)]="ContractStatus">
+                            </p-dropdown>
+                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="FormValidationErrStatus == 1">
+                              <i class="fa fa-close"></i>
+                              Campul este obligatoriu
+                            </div>
+                          </div>
+                        </div>
+                        <div class="ui-g-12">
+                          <div class="ui-g-12 ui-md-3">
+                            <p>
+                              Descriere Contract
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <textarea pInputTextarea [(ngModel)]="ContractDescription" class="textarea">Contract Description</textarea>
+                          </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <h4 class="card-title">Corespondenta/Notificari</h4>
+                        <!-- <p class="card-text">Corespondenta/Notificari</p> -->
+                        <hr class="hr">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="ui-g">
+                              <div class="ui-g-12">
+                                <div class="ui-g-12 ui-md-3">
+                                  <p>
+                                    Adresa Corespondenta
+                                  </p>
+                                </div>
+                                <div class="ui-g-12 ui-md-8">
+                                  <textarea pInputTextarea [(ngModel)]="CorrespondenceAddress" class="textarea">Correspondence Address</textarea>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="ui-g-12">
+                              <div class="ui-g-12 ui-md-3">
+                                <p>
+                                  Persoana Contact
+                                </p>
+                              </div>
+                              <div class="ui-g-12 ui-md-8">
+                                <textarea pInputTextarea [(ngModel)]="AddressedTo" class="textarea">Person Name/Function....</textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="ui-g">
+                              <div class="ui-g-12 ui-md-6">
+                                <p>
+                                  Tel/Fax
+                                </p>
+                                <input type="text" pInputText placeholder="123456" pTooltip="Enter Tel/Fax Nmb." [(ngModel)]="TelephoneFax">
+                              </div>
+                              <div class="ui-g-12 ui-md-6">
+                                <p>
+                                  E-mail
+                                </p>
+                                <input type="text" pInputText placeholder="123456" pTooltip="Enter E-mail" [(ngModel)]="Email">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">Proprietati Standard Contract</h4>
+                        <!-- <p class="card-text">Proprietati Standard Contract</p> -->
+                        <hr class="hr">
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-4">
+                            <p>
+                              Categorie Contract
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-dropdown [options]="LCC" [(ngModel)]="ContractCategory" [style]="{'width':'150px'}" filter="true">
+                            </p-dropdown>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-plus text-success" aria-hidden="true" (click)="showDialogAddContractCategory()"></span>
+                            </button>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-pencil text-primary" aria-hidden="true" (click)="showDialogForContractCategory(ContractCategory)"></span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-4">
+                            <p>
+                              Departament
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-dropdown [options]="LD" [(ngModel)]="Department" [style]="{'width':'150px'}" filter="true">
+                            </p-dropdown>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-plus text-success" aria-hidden="true" (click)="showDialogAddDepartament()"></span>
+                            </button>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-pencil text-primary" aria-hidden="true" (click)="showDialogForDepartment(Department)"></span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-4">
+                            <p>
+                              Persoana Responsabila
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-dropdown [options]="LP" [(ngModel)]="ResponsiblePerson" [style]="{'width':'150px'}" filter="true">
+                            </p-dropdown>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-plus text-success" aria-hidden="true" (click)="showDialogPerson()"></span>
+                            </button>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-pencil text-primary" aria-hidden="true" (click)="showDialogForPerson(ResponsiblePerson)"></span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-4">
+                            <p>
+                              Clasa Venituri/Cheltuieli
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-dropdown [options]="LCIE" [(ngModel)]="ClassIE" [style]="{'width':'150px'}" filter="true">
+                            </p-dropdown>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-plus text-success" aria-hidden="true" (click)="showDialogAddCalssIE()"></span>
+                            </button>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-pencil text-primary" aria-hidden="true" (click)="showDialogForClassIE(ClassIE)"></span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-4">
+                            <p>
+                              Centru de Cost
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-dropdown [options]="LCCost" [(ngModel)]="CostCenter" [style]="{'width':'150px'}" filter="true">
+                            </p-dropdown>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-plus text-success" aria-hidden="true" (click)="showDialogAddCostCenter()"></span>
+                            </button>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-pencil text-primary" aria-hidden="true" (click)="showDialogForCostCenter(CostCenter)"></span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-4">
+                            <p>
+                              Linie de CashFlow
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-dropdown [options]="LCF" [(ngModel)]="CashFlowLine" [style]="{'width':'150px'}" filter="true">
+                            </p-dropdown>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-plus text-success" aria-hidden="true" (click)="showDialogAddCashFlowLine()"></span>
+                            </button>
+                            <button type="button" class="btn btn-link">
+                              <span class="glyphicon glyphicon-pencil text-primary" aria-hidden="true" (click)="showDialogForCashFlowLine(CashFlowLine)"></span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="ui-g">
+                          <div class="ui-g-12 ui-md-4">
+                            <p>
+                              Prelungire Automata
+                            </p>
+                          </div>
+                          <div class="ui-g-12 ui-md-8">
+                            <p-inputSwitch onLabel="Yes" offLabel="No" [(ngModel)]="SelfExtension"></p-inputSwitch>
+                          </div>
+                        </div>
+                        <!-- <div *ngIf="SelfExtension; then thenNoTemplateName; else elseTemplateName">
+                        </div>
+                        <ng-template #elseTemplateName> -->
+                        <!-- <div class="ui-g">
+                                        <div class="ui-g-12 ui-md-3">
+                                          <p>
+                                            Extension Notification
+                                          </p>
+                                        </div>
+                                        <div class="ui-g-12 ui-md-8">
+                                          <input type="text" pInputText placeholder="10" pTooltip="Enter nmb. of days for the Extension Notification" [(ngModel)]="ExtensionNotification">
+                                        </div>
+                                      </div> -->
+                        <!-- <div class="ui-g">
+                            <div class="ui-g-12 ui-md-4">
+                              <p>
+                                Data Notificare Prelungire
+                              </p>
+                            </div>
+                            <div class="ui-g-12 ui-md-8">
+                              <p-calendar [showIcon]="true" pTooltip="Enter Extension Notification Date" tooltipPosition="top" [(ngModel)]="ExtensionNotificationDate"></p-calendar>
+                            </div>
+                          </div>
+                        </ng-template> -->
+  
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="ui-g-12">
+                              <div class="ui-g-12 ui-md-3">
+                                <p>
+                                  Note
+                                </p>
+                              </div>
+                              <div class="ui-g-12 ui-md-8">
+                                <textarea pInputTextarea [(ngModel)]="Notes" class="textarea">Note</textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        <br>
+                        <h4 class="card-title">Proprietati Specifice Contract</h4>
+                        <hr class="hr">
+                        <div class="col-md-12">
+                          <div class="ui-g">
+                            <div class="ui-g-12">
+                              <div class="ui-g-12 ui-md-4">
+                                <p>Adauga Proprietate</p>
+                              </div>
+                              <div class="ui-g-12 ui-md-5">
+                                <button type="button" class="btn btn-link">
+                                  <span class="glyphicon glyphicon-plus text-success" aria-hidden="true" (click)="showDialogProperties()"></span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="TabelVisible">
+                            <div class="ui-g-12">
+                          <p-scrollPanel [style]="{width: '100%', height: '200px'}" styleClass="custom">
+                            <table class="table">
+                              <thead>
+                                <th>Nume</th>
+                                <th>Valoare</th>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let prop of itemObjectsRight; index as i">
+                                  <td>{{ prop.PropertyName }}</td>
+                                  <td>
+                                    <div *ngIf="prop.PropertyType=='Data'; then DateTemplate"></div>
+                                    <div *ngIf="prop.PropertyType=='Numeric'; then NumericTemplate"></div>
+                                    <div *ngIf="prop.PropertyType=='Text'; then TextTemplate"></div>
+                                    <ng-template #TextTemplate>
+                                      <div class="form-group">
+                                        <input type="text" disabled pTooltip="Format Text" tooltipPosition="top" [(ngModel)]="TextProprietate[i]" class="InputProperty"
+                                          placeholder="text" name="TextProprietate{{i}}" id="TextProprietate{{i}}">
+                                      </div>
+                                    </ng-template>
+                                    <ng-template #DateTemplate>
+                                      <p-calendar [(ngModel)]="DataProprieate[i]" disabled [showIcon]="true" name="DataProprieate{{i}}" id="DataProprieate{{i}}"></p-calendar>
+                                    </ng-template>
+                                    <ng-template #NumericTemplate>
+                                      <input type="text" disabled pTooltip="Format Numeric" tooltipPosition="top" [(ngModel)]="TextProprietate[i]" class="InputProperty"
+                                        placeholder="numeric" name="TextProprietate{{i}}" id="TextProprietate{{i}}">
+                                    </ng-template>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </p-scrollPanel>
+                            </div>
+                        </div>
+  
+                        <br>
+                        <br>
+                        <!-- <div class="row">
+                          <div class="col-md-12">
+                            <div class="ui-g-12">
+                              <p>
+                                Note
+                              </p>
+                              <textarea [rows]="2" [cols]="100" pInputTextarea autoResize="autoResize" [(ngModel)]="Notes">Notes</textarea>
+                            </div>
+                          </div>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="hr1">
+                <div class="row">
+                  <button type="button" class="btn btn-success">Modifica</button>
+                  <button type="button" class="btn btn-warning">Adauga Act Aditional</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{Version}}
+  </section>
+  
+  <p-dialog header="Adauga Responsabil Contract" [(visible)]="displayPerson" modal="modal" [responsive]="true" [width]="300"
+    [minWidth]="200">
+    <span>
+      <p>Prenume</p>
+      <input id="inputnewName" type="text" size="30" pInputText [(ngModel)]="Name">
+      <p>Nume</p>
+      <input id="inputnewSurname" type="text" size="30" pInputText [(ngModel)]="Surname">
+      <p>CNP</p>
+      <input id="inputnewCNP" type="text" size="30" pInputText [(ngModel)]="CNP">
+      <p>Functie</p>
+      <input id="inputnewFunction" type="text" size="30" pInputText [(ngModel)]="EmplFunction">
+      <p>Email</p>
+      <input id="inputnewEmail" type="text" size="30" pInputText [(ngModel)]="EmplEmail">
+      <p>Telefon</p>
+      <input id="inputnewTelephone" type="text" size="30" pInputText [(ngModel)]="Telephone">
+    </span>
+    <p-footer>
+      <button type="button" pButton icon="fa-check" (click)="SavePerson(PersonId, Name, Surname, CNP, EmplFunction, EmplEmail, Telephone)"
+        label="Salveaza"></button>
+      <button type="button" pButton icon="fa-close" (click)="displayPerson=false" label="Renunta"></button>
+    </p-footer>
+  </p-dialog>
+  
+  
+  <!-- ADAUGA PROPRIETATE - MODAL RAZVAN -->
+  <p-dialog header="Adauga Proprietate" [(visible)]="displayProperties" modal="modal" [responsive]="true" [width]="600" [minWidth]="200">
+    <span>
+      <br>
+      <p-pickList [source]="itemObjectsLeft" [target]="itemObjectsRight" sourceHeader="Disponibile" targetHeader="Selectate" dragdrop="true"
+        dragdropScope="cars" [responsive]="true" [sourceStyle]="{'height':'100px'}" [targetStyle]="{'height':'100px'}" filterBy="name"
+        sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name">
+        <ng-template let-property pTemplate="item">
+          <div class="ui-helper-clearfix">
+  
+            <div style="font-size:9px;float:right;margin:1px 1px 0 0">{{property.PropertyName}} </div>
+          </div>
+        </ng-template>
+      </p-pickList>
+      <br>
+      <br>
+      <p-scrollPanel [style]="{width: '100%', height: '300px'}" styleClass="custom">
+        <table class="table">
+          <thead>
+            <th>Nume</th>
+            <th>Tip</th>
+            <th>Valoare</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prop of itemObjectsRight; index as i">
+              <td>{{ prop.PropertyName }}</td>
+              <td>{{ prop.PropertyType }}</td>
+              <td>
+                <div *ngIf="prop.PropertyType=='Data'; then DateTemplate"></div>
+                <div *ngIf="prop.PropertyType=='Numeric'; then NumericTemplate"></div>
+                <div *ngIf="prop.PropertyType=='Text'; then TextTemplate"></div>
+                <ng-template #TextTemplate>
+                  <div class="form-group">
+                    <input type="text" pTooltip="Format Text" tooltipPosition="top" [(ngModel)]="TextProprietate[i]" class="form-control" placeholder="text"
+                      name="TextProprietate{{i}}" id="TextProprietate{{i}}">
+                  </div>
+                </ng-template>
+                <ng-template #DateTemplate>
+                  <p-calendar [(ngModel)]="DataProprieate[i]" [showIcon]="true" name="DataProprieate{{i}}" id="DataProprieate{{i}}"></p-calendar>
+                </ng-template>
+                <ng-template #NumericTemplate>
+                  <input type="text" pTooltip="Format Numeric" tooltipPosition="top" [(ngModel)]="TextProprietate[i]" class="form-control"
+                    placeholder="numeric" name="TextProprietate{{i}}" id="TextProprietate{{i}}">
+                </ng-template>
+  
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <ul *ngFor="let prop of itemObjectsRight; index as i">
+                        {{DataProprieate[i]}} 
+                        {{TextProprietate[i]}}
+                      </ul>  -->
+      </p-scrollPanel>
+      <br>
+      <br>
+      <button type="button" pButton icon="fa-check" (click)="SaveProperties()" label="Salveaza"></button>
+      <button type="button" pButton icon="fa-close" (click)="displaycloseProperties()" label="Renunta"></button>
+    </span>
+  </p-dialog>
+  
+  
+  
+  
+  
+  
+  
+  <p-dialog header="Adauga Responsabil Contract" [(visible)]="displayPerson" modal="modal" [responsive]="true" [width]="300"
+    [minWidth]="200">
+    <span>
+      <p>Prenume</p>
+      <input id="inputnewName" type="text" size="30" pInputText [(ngModel)]="Name">
+      <p>Nume</p>
+      <input id="inputnewSurname" type="text" size="30" pInputText [(ngModel)]="Surname">
+      <p>CNP</p>
+      <input id="inputnewCNP" type="text" size="30" pInputText [(ngModel)]="CNP">
+      <p>Functie</p>
+      <input id="inputnewFunction" type="text" size="30" pInputText [(ngModel)]="EmplFunction">
+      <p>Email</p>
+      <input id="inputnewEmail" type="text" size="30" pInputText [(ngModel)]="EmplEmail">
+      <p>Telefon</p>
+      <input id="inputnewTelephone" type="text" size="30" pInputText [(ngModel)]="Telephone">
+    </span>
+    <p-footer>
+      <button type="button" pButton icon="fa-check" (click)="SavePerson(PersonId, Name, Surname, CNP, EmplFunction, EmplEmail, Telephone)"
+        label="Salveaza"></button>
+      <button type="button" pButton icon="fa-close" (click)="displayPerson=false" label="Renunta"></button>
+    </p-footer>
+  </p-dialog>
+  
+  <p-dialog header="Adauga Partener" [(visible)]="displayPartner" modal="modal" [responsive]="true" [width]="300" [minWidth]="200">
+    <span>
+      <p>Status Partener</p>
+  
+      <select class="form-control" id="PartnerStatus" [(ngModel)]="PartnerStatus">
+        <option selected="selected">{{PartnerStatus}} </option>
+        <option disabled>---</option>
+        <option>Activ</option>
+        <option>Inactiv</option>
+      </select>
+  
+      <p>Platitor TVA</p>
+      <select class="form-control" id="VATPayer" [(ngModel)]="VATPayer">
+        <option selected="selected">{{VATPayer}} </option>
+        <option disabled>---</option>
+        <option>Da</option>
+        <option>Nu</option>
+      </select>
+  
+      <p>Nume Partener</p>
+      <!-- <label for="PartnerName">Nume Partener</label> -->
+      <input class="form-control" type="text" placeholder="Nume Partener" id="PartnerName" [(ngModel)]="PartnerName">
+  
+  
+      <p>Cont Bancar</p>
+      <input class="form-control" type="text" placeholder="Cont Bancar" id="BankAccount" [(ngModel)]="BankAccount">
+  
+      <p>Cod Partener</p>
+      <input class="form-control" type="text" placeholder="Cod Partener" id="PartnerCode" [(ngModel)]="PartnerCode">
+  
+      <p>Delegat</p>
+      <input class="form-control" type="text" placeholder="Delegat" id="Delegate" [(ngModel)]="Delegate">
+  
+  
+  
+      <p>Cod Intern Partener</p>
+      <input class="form-control" type="text" placeholder="Cod Intern Partener" id="PartnerInternalCode" [(ngModel)]="PartnerInternalCode">
+  
+      <p>Agent</p>
+      <input class="form-control" type="text" placeholder="Agent" id="Agent" [(ngModel)]="Agent">
+  
+  
+      <p>Tip Partener</p>
+      <select class="form-control" id="PartnerType" [(ngModel)]="PartnerType">
+        <option selected="selected">{{PartnerType}} </option>
+        <option disabled>---</option>
+        <option>Client</option>
+        <option>Furnizor</option>
+        <option>Bifunctional</option>
+      </select>
+  
+      <p>Moneda de baza</p>
+      <select class="form-control" id="BaseCurrency" [(ngModel)]="BaseCurrency">
+        <option selected="selected">{{BaseCurrency}} </option>
+        <option disabled>---</option>
+        <option>RON</option>
+        <option>EUR</option>
+        <option>USD</option>
+      </select>
+  
+      <p>Denumire scurta Partener</p>
+      <input class="form-control" type="text" id="ShortPartnerName" [(ngModel)]="ShortPartnerName" placeholder="Denumire scurta Partener">
+  
+      <p>Telefon</p>
+      <input type="email" class="form-control" id="Phone" [(ngModel)]="Phone" placeholder="Telefon">
+  
+  
+      <p>CUI</p>
+      <input class="form-control" type="text" placeholder="Cod Fiscal" id="ComercialRegistration" [(ngModel)]="ComercialRegistration">
+  
+      <p>Email Partener</p>
+      <input type="email" class="form-control" id="Email" [(ngModel)]="Email" placeholder="name@example.com">
+  
+  
+      <p>Nr. Reg. Com.</p>
+      <input class="form-control" type="text" id="FiscalRegistration" [(ngModel)]="FiscalRegistration" placeholder="J">
+  
+      <p>Adresa WEB</p>
+      <input type="email" class="form-control" id="WEB" [(ngModel)]="WEB" placeholder="www">
+  
+  
+      <p>Adresa</p>
+      <input class="form-control" type="text" id="PartnerAddress" [(ngModel)]="PartnerAddress" placeholder="Adresa">
+  
+  
+      <p>Forma Legala</p>
+      <select class="form-control" id="LegalForm" [(ngModel)]="LegalForm">
+        <option selected="selected">{{LegalForm}} </option>
+        <option disabled>---</option>
+        <option>SRL</option>
+        <option>SA</option>
+        <option>SC</option>
+      </select>
+  
+  
+      <p>Note</p>
+      <textarea class="form-control" rows="4" id="Notes" [(ngModel)]="Notes" placeholder="Note"></textarea>
+  
+    </span>
+    <p-footer>
+      <button type="button" pButton icon="fa-check" (click)="SavePartner(PartnerId, PartnerStatus, PartnerName, PartnerCode, PartnerInternalCode, PartnerType, ShortPartnerName, ComercialRegistration, 
+        FiscalRegistration, PartnerAddress, LegalForm, Notes, VATPayer, BankAccount, Delegate, Agent, BaseCurrency, Phone, Email, WEB)"
+        label="Salveaza"></button>
+      <button type="button" pButton icon="fa-close" (click)="displayPartner=false" label="Renunta"></button>
+    </p-footer>
+  </p-dialog>
+  
+  <!-- MODAL DEPARTAMENT -->
+  <p-dialog header="Adauga Departament" [(visible)]="displayAddDepartment" modal="modal" [responsive]="true" [width]="300"
+    [minWidth]="200">
+    <span>
+      <p>Denumire Departament</p>
+      <input id="input" type="text" size="30" pInputText [(ngModel)]="DepartmentName">
+    </span>
+    <p-footer>
+      <button type="button" pButton icon="fa-check" (click)="saveDepartment(DepartmentId, DepartmentName)" label="Salveaza"></button>
+      <button type="button" pButton icon="fa-close" (click)="displayAddDepartment=false" label="Renunta"></button>
+    </p-footer>
+  </p-dialog>
+  
+  <!-- MODAL CATEGORIE CONTRACT -->
+  <p-dialog header="Adauga Categorie" [(visible)]="displayAddContractCategory" modal="modal" [responsive]="true" [width]="300"
+    [minWidth]="200">
+    <span>
+      <p>Categorie Contract</p>
+      <input id="input" type="text" size="30" pInputText [(ngModel)]="ContractCategoryName">
+    </span>
+    <p-footer>
+      <button type="button" pButton icon="fa-check" (click)="saveContractCategory(ContractCategoryId, ContractCategoryName)" label="Salveaza"></button>
+      <button type="button" pButton icon="fa-close" (click)="displayAddContractCategory=false" label="Renunta"></button>
+    </p-footer>
+  </p-dialog>
+  
+  <p-dialog header="Adauga Clasa Venituri/Cheltuieli" [(visible)]="displayAddClassIE" modal="modal" [responsive]="true" [width]="300"
+    [minWidth]="200">
+    <span>
+      <p>Denumire Clasa Venituri/Cheltuieli</p>
+      <input id="input" type="text" size="30" pInputText [(ngModel)]="ClassIEName">
+    </span>
+    <p-footer>
+      <button type="button" pButton icon="fa-check" (click)="saveClassIE(ClassIEId, ClassIEName)" label="Salveaza"></button>
+      <button type="button" pButton icon="fa-close" (click)="displayAddClassIE=false" label="Renunta"></button>
+    </p-footer>
+  </p-dialog>
+  
+  
+  <p-dialog header="Adauga Centru de Cost" [(visible)]="displayAddCostCenter" modal="modal" [responsive]="true" [width]="300"
+    [minWidth]="200">
+    <span>
+      <p>Centru de Cost {{CostCenterName}}</p>
+      <input id="input" type="text" size="30" pInputText [(ngModel)]="CostCenterName">
+    </span>
+    <p-footer>
+      <button type="button" pButton icon="fa-check" (click)="saveCostCenter(CostCenterId, CostCenterName)" label="Salveaza"></button>
+      <button type="button" pButton icon="fa-close" (click)="displayAddCostCenter=false" label="Renunta"></button>
+    </p-footer>
+  </p-dialog>
+  
+  
+  <p-dialog header="Adauga Linie de CashFlow" [(visible)]="displayAddCashFlowLine" modal="modal" [responsive]="true" [width]="300"
+    [minWidth]="200">
+    <span>
+      <p>Linie de CashFlow</p>
+      <input id="input" type="text" size="30" pInputText [(ngModel)]="CashFlowLineName">
+    </span>
+    <p-footer>
+      <button type="button" pButton icon="fa-check" (click)="saveCashFlowLine(CashFlowLineId, CashFlowLineName)" label="Salveaza"></button>
+      <button type="button" pButton icon="fa-close" (click)="displayAddCashFlowLine=false" label="Renunta"></button>
+    </p-footer>
+  </p-dialog>
